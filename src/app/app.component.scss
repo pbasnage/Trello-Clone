@@ -34,7 +34,7 @@
 }
 
 .boards-container {
-  background-color: white;
+  background-color: $off-white;
   height: 100%;
   top: 4rem;
   position: absolute;
@@ -42,5 +42,28 @@
   .boards-info {
     display: flex;
     padding: 1rem;
+  }
+  .boards-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 1rem;
+    height: auto;
+    .board-preview {
+      width: 10rem;
+      height: 6rem;
+      border: 1px solid $dark-gray;
+      border-radius: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 1rem;
+      background-color: white;
+      cursor: pointer;
+
+      &:hover {
+        background-color: aliceblue;
+      }
+    }
   }
 }

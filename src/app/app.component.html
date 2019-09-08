@@ -1,15 +1,19 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div class="tc-banner">
-  <div class="tc-button">Home</div>
+  <div class="tc-button" (click)="navToHome()">
+    Home
+  </div>
   <div class="title">Trello Clone</div>
 </div>
 <div class="boards-container">
   <div class="boards-info">
     {{boards.length > 0 ? 'Your Boards:' : 'You have no boards yet! Add one now.'}}
   </div>
-  <div *ngFor="let board of boards"
-       class="boards-wrapper">
-    <div class="board-preview">{{board.name}}</div>
+  <div class="boards-wrapper">
+    <div *ngFor="let board of boards"
+         class="board-preview">
+      {{board.name}}
+    </div>
   </div>
 </div>
 
