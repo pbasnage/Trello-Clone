@@ -33,7 +33,14 @@
   }
 }
 
-.boards-wrapper {
+.boards-container {
   background-color: white;
   height: 100%;
+  top: 4rem;
+  position: absolute;
+  width: 100%;
+  .boards-info {
+    display: flex;
+    padding: 1rem;
+  }
 }
