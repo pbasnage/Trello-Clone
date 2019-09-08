@@ -1,5 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {BoardComponent} from "./board/board.component";
+import {BoardModel} from "./models/board.model";
 
 @Component({
   selector: "tc-app",
@@ -8,9 +9,10 @@ import {BoardComponent} from "./board/board.component";
 })
 export class AppComponent implements OnInit {
   public title = "trello-clone";
-  public boards: BoardComponent[] = [];
+  public boards: BoardModel[] = [];
 
   public ngOnInit(): void {
-
+    const testBoard = new BoardModel("Main Board", []);
+    this.boards.push(testBoard);
   }
 }
