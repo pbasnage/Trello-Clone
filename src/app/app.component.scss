@@ -1,0 +1,39 @@
+@import "../styles.scss";
+
+.tc-banner {
+  position: absolute;
+  top: 0;
+  height: 4rem;
+  width: 100%;
+  background-color: $dark-gray;
+  display: flex;
+  align-items: center;
+}
+
+.title {
+  color: white;
+  position: relative;
+  margin: 0 auto;
+  font-size: 2rem;
+}
+
+.tc-button {
+  color: white;
+  position: absolute;
+  margin-left: 1rem;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid white;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  &:hover {
+    color: $dark-gray;
+    background-color: white;
+    border-color: $dark-gray;
+  }
+}
+
+.boards-wrapper {
+  background-color: white;
+  height: 100%;
+}

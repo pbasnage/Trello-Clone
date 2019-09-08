@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body {
+  height: 100% !important;
+  font-family: "Calibri", Cali, sans-serif !important;
+}
+
+body {
+  margin: 0 !important;
+}
+
+// colors
+$dark-gray: #323639;
