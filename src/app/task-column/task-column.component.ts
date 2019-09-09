@@ -3,7 +3,7 @@ import {BoardComponent} from "../board/board.component";
 import {BoardModel} from "../models/board.model";
 import {TaskColumnModel} from "../models/task-column.model";
 import {TaskModel} from "../models/task.model";
-import {TrelloCloneService} from '../services/trello-clone.service';
+import {TrelloCloneService} from "../services/trello-clone.service";
 
 @Component({
   selector: "tc-task-column",
@@ -37,11 +37,9 @@ export class TaskColumnComponent implements OnInit {
     }
     if (!this.taskColumn.tasks.length) {
       for (let i = 0; i < 10; i++) {
-        const task = new TaskModel("Task " + i, "Description " + i, -1, this.taskColumn);
+        const task = new TaskModel("Task " + i, "Description " + i, "", this.taskColumn);
         this.taskColumn.tasks.push(task);
       }
     }
-    console.log("currenttaskColumn", this.taskColumn);
-
   }
 }

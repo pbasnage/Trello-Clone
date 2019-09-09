@@ -1,10 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<div class="task-wrapper">
+  <div class="task-title">{{task.title}}</div>
+  <div class="task-desc">{{task.description}}</div>
+  <div class="status-row">
+    <div *ngIf="!!task?.completionTime; else notYetCompleted" class="completed-row">
+      Completed:&nbsp;{{task.completionTime}}
+    </div>
+    <ng-template #notYetCompleted >
+      <div class="not-completed-row">
+        <div class="done-button"
+             (click)="completeTask()">
+          Done
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>

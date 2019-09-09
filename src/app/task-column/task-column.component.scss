@@ -1,7 +1,8 @@
 @import "../../styles.scss";
 
 .task-column-wrapper {
-  height: 90%;
+  max-height: 99%;
+  overflow-y: scroll;
   border: 1px solid $dark-gray;
   width: 12rem;
   margin: 0.125rem 0.25rem;
@@ -22,16 +23,8 @@
   .task-container {
     width: 100%;
     height: 100%;
+    min-height: 4rem;
     overflow-x: hidden;
     overflow-y: scroll;
-
-    .task {
-      border: 1px solid $dark-gray;
-      border-radius: 0.25rem;
-      min-height: 3rem;
-      margin: 0.25rem;
-      padding: 0.25rem;
-      background-color: #ABCEFD;
-    }
   }
 }

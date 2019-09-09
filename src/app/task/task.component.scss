@@ -1,0 +1,52 @@
+@import "../../styles.scss";
+
+.task-wrapper {
+  border: 1px solid $dark-gray;
+  border-radius: 0.25rem;
+  min-height: 3rem;
+  margin: 0.25rem;
+  background-color: #ABCEFD;
+
+  .task-title {
+    font-size: 1.25rem;
+    margin: 0.25rem;
+  }
+
+  .task-desc {
+    font-size: 0.875rem;
+    margin: 0.25rem;
+  }
+
+  .status-row {
+    .completed-row {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      height: 2rem;
+      background-color: lightgreen;
+      border-radius: 0 0 0.25rem 0.25rem;
+      font-size: 0.875rem;
+      padding: 0.25rem;
+    }
+    .not-completed-row {
+      display: flex;
+      justify-content: flex-end;
+      align-items: end;
+      height: 2rem;
+
+      .done-button {
+        border: 1px $dark-gray solid;
+        border-radius: 0.25rem;
+        padding: 0.25rem;
+        font-size: 0.875rem;
+        margin-right: 0.25rem;
+        background-color: $off-white;
+        cursor: pointer;
+
+        &:hover {
+          background-color: lightgreen;
+        }
+      }
+    }
+  }
+}

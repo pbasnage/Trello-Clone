@@ -1,4 +1,5 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, Input, OnInit} from "@angular/core";
+import {TaskModel} from "../models/task.model";
 
 @Component({
   selector: "tc-task",
@@ -6,9 +7,17 @@ import {Component, OnInit} from "@angular/core";
   styleUrls: ["./task.component.scss"]
 })
 export class TaskComponent implements OnInit {
-  public board = null;
+  @Input() task: TaskModel;
 
   public ngOnInit(): void {
 
+  }
+
+  public completeTask(): void {
+    const today = new Date();
+    const localeDate = today.toLocaleDateString();
+    const localTime = today.toLocaleTimeString();
+
+    this.task.completionTime = localeDate + " " + localTime;
   }
 }
