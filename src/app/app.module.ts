@@ -1,10 +1,12 @@
 import {BrowserModule} from "@angular/platform-browser";
 import {NgModule} from "@angular/core";
+import {SortablejsModule} from "ngx-sortablejs";
 import {AppRoutingModule} from "./app-routing.module";
 import {AppComponent} from "./app.component";
 import {BoardComponent} from "./board/board.component";
 import {TaskComponent} from "./task/task.component";
 import {TaskColumnComponent} from "./task-column/task-column.component";
+import {TrelloCloneService} from "./services/trello-clone.service";
 
 @NgModule({
   declarations: [
@@ -15,9 +17,12 @@ import {TaskColumnComponent} from "./task-column/task-column.component";
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    SortablejsModule.forRoot({ animation: 150 }),
   ],
-  providers: [],
+  providers: [
+    TrelloCloneService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

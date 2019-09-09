@@ -1,10 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<div class="task-column-wrapper">
+  <div class="title">
+    BASIC TASK COLUMN COMPONENT {{taskColumn.name}}
+  </div>
+  <div class="task-container" [sortablejs]="taskColumn.tasks" [sortablejsOptions]="taskColumnSortableOptions">
+    <div *ngFor="let task of taskColumn.tasks"
+         class="task">
+      <div class="task-title">{{task.title}}</div>
+      <div class="task-desc">{{task.description}}</div>
+    </div>
+  </div>
+</div>

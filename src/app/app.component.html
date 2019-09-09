@@ -5,16 +5,20 @@
   </div>
   <div class="title">Trello Clone</div>
 </div>
-<div class="boards-container">
+<div *ngIf="currentRoute !== 'boards'" class="boards-container">
   <div class="boards-info">
     {{boards.length > 0 ? 'Your Boards:' : 'You have no boards yet! Add one now.'}}
   </div>
   <div class="boards-wrapper">
     <div *ngFor="let board of boards"
+         (click)="goToBoard(board)"
          class="board-preview">
       {{board.name}}
     </div>
   </div>
 </div>
-
 <router-outlet></router-outlet>
+<div *ngIf="currentRoute === 'boards'" class="boards-container">
+  <tc-board [board]="currentBoard"></tc-board>
+</div>
+

@@ -9,8 +9,8 @@ const routes: Routes = [
     component: AppComponent,
   },
   {
-    path: "boards/:idBoard",
-    component: BoardComponent,
+    path: "boards/:boardName",
+    component: AppComponent,
   },
   {
     path: "**",
