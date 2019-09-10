@@ -48,32 +48,28 @@ export class TrelloCloneService {
       return;
     }
 
-    // Open a new connection
-    const request = new XMLHttpRequest();
-    request.open(method, url, true);
+    return new Promise<any>((resolve, reject) => {
+      // Open a new connection
+      const request = new XMLHttpRequest();
+      request.open(method, url, true);
 
-    request.onload = () => {
-      console.log("response", request.response);
-      const data = JSON.parse(request.response);
-      console.log("data", data);
+      request.onload = () => {
+        const data = JSON.parse(request.response);
+        console.log("json response", data);
 
-      if (request.status >= 200 && request.status < 400) {
-        console.log("success");
-        // data.forEach(blob => {
-        //   console.log("blobl", blob);
-        // });
-      } else {
-        console.error("error");
-      }
-      return Promise.resolve(request.response);
-    };
+        if (request.status >= 200 && request.status < 400) {
+          resolve(data);
+        } else {
+          console.error("error ", request.status);
+        }
+      };
 
-    request.onerror = () => {
-      return Promise.reject("API failure error");
-    };
+      request.onerror = () => {
+        reject("API failure error");
+      };
 
-    request.send();
-    return Promise.resolve();
+      request.send();
+    });
   }
 
   /**

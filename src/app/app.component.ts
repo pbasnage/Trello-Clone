@@ -1,7 +1,7 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Params, Router} from '@angular/router';
-import {BoardModel} from './models/board.model';
-import {Operation, TrelloCloneService} from './services/trello-clone.service';
+import {Component, OnInit} from "@angular/core";
+import {ActivatedRoute, Params, Router} from "@angular/router";
+import {BoardModel} from "./models/board.model";
+import {Operation, TrelloCloneService} from "./services/trello-clone.service";
 
 @Component({
   selector: "tc-app",
@@ -14,7 +14,6 @@ export class AppComponent implements OnInit {
   public currentRoute: string;
   public currentBoard: BoardModel;
   private routeSub: any;
-  private changeRef: ChangeDetectorRef;
 
   constructor(
     public router: Router,
@@ -25,10 +24,12 @@ export class AppComponent implements OnInit {
 
   public ngOnInit(): void {
 
-    this.tcs.doOperation(Operation.GET_TASKS).then((tasks) => {
-      console.log("tasks", tasks);
+    this.tcs.doOperation(Operation.GET_BOARDS).then((boards: any) => {
+      boards.forEach((board) => {
+        this.boards.push(board);
+      });
     }).catch((e) => {
-      console.error("GET Tasks error", e);
+      console.error("GET Boards error", e);
     });
 
     this.routeSub = this.route.params.subscribe((params: Params) => {
@@ -38,11 +39,6 @@ export class AppComponent implements OnInit {
         this.currentRoute = "";
       }
     });
-
-    for (let i = 0; i < 10; i++) {
-      const testBoard = new BoardModel("My Board " + i, []);
-      this.boards.push(testBoard);
-    }
   }
 
   public navToHome(): void {
@@ -55,9 +51,5 @@ export class AppComponent implements OnInit {
     this.router.navigateByUrl("/boards/" + board.name).catch((e) => {
       console.error("Navigate to board name " + board.name + " error", e);
     });
-  }
-
-  private initBoards(): void {
-
   }
 }
