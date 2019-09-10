@@ -12,7 +12,10 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Run `brew services start mongodb-community@3.2` to start the mongo database.
+Run `node server.js` to start the the local server.
+In a new terminal tab, run `npm start` to build the Angular project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+
 
 ## Running unit tests
 

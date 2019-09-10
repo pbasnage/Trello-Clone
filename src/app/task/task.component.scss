@@ -31,7 +31,7 @@
     .not-completed-row {
       display: flex;
       justify-content: flex-end;
-      align-items: end;
+      align-items: flex-end;
       height: 2rem;
 
       .done-button {
@@ -39,7 +39,7 @@
         border-radius: 0.25rem;
         padding: 0.25rem;
         font-size: 0.875rem;
-        margin-right: 0.25rem;
+        margin: 0.25rem;
         background-color: $off-white;
         cursor: pointer;
 
