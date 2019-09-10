@@ -14,6 +14,11 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 Run `brew services start mongodb-community@3.2` to start the mongo database.
 Run `node server.js` to start the the local server.
+
+Close all instances of Chrome and open Chrome on another tab using
+`open -a /Applications/Google\ Chrome.app --args --disable-web-security --user-data-dir`
+This turns off the CORS policy that normally would block our requests from reaching our local server.
+
 In a new terminal tab, run `npm start` to build the Angular project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
 

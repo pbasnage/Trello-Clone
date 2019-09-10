@@ -1,7 +1,7 @@
-import {AfterViewInit, ChangeDetectorRef, Component, OnInit} from "@angular/core";
-import {ActivatedRoute, Params, Router} from "@angular/router";
-import {BoardComponent} from "./board/board.component";
-import {BoardModel} from "./models/board.model";
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Params, Router} from '@angular/router';
+import {BoardModel} from './models/board.model';
+import {Operation, TrelloCloneService} from './services/trello-clone.service';
 
 @Component({
   selector: "tc-app",
@@ -19,10 +19,18 @@ export class AppComponent implements OnInit {
   constructor(
     public router: Router,
     public route: ActivatedRoute,
+    private tcs: TrelloCloneService,
   ) {
   }
 
   public ngOnInit(): void {
+
+    this.tcs.doOperation(Operation.GET_TASKS).then((tasks) => {
+      console.log("tasks", tasks);
+    }).catch((e) => {
+      console.error("GET Tasks error", e);
+    });
+
     this.routeSub = this.route.params.subscribe((params: Params) => {
       if (params.boardName) {
         this.currentRoute = "boards";
@@ -47,5 +55,9 @@ export class AppComponent implements OnInit {
     this.router.navigateByUrl("/boards/" + board.name).catch((e) => {
       console.error("Navigate to board name " + board.name + " error", e);
     });
+  }
+
+  private initBoards(): void {
+
   }
 }

@@ -2,12 +2,28 @@ const express = require('express'),
   app = express(),
   port = process.env.PORT || 3000,
   mongoose = require('mongoose'),
-  Task = require('./api/models/trelloCloneModel'), //created model loading here
+  Schema = mongoose.Schema,
+  TaskSchema = require('./api/models/taskModel'),
+  TaskColumnSchema = require('./api/models/taskColumnModel'),
+  BoardSchema = require('./api/models/boardModel'),
   bodyParser = require('body-parser');
+
+const Task = mongoose.model('Task', TaskSchema);
+const TaskColumn = mongoose.model('TaskColumn', TaskColumnSchema);
+const Board = mongoose.model('Board', BoardSchema);
 
 // mongoose instance connection url connection
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/trelloCloneDB');
+mongoose.connect('mongodb://localhost/trelloCloneDB').then((connection) => {
+
+  /**
+   * Clear Database and manually enter some task, taskColumn, and board instances
+   */
+  initializeData();
+
+}).catch(e => {
+  console.error("trello clone db connection error", e);
+});
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -26,3 +42,62 @@ app.use(function(req, res) {
 
 
 console.log('todo list RESTful API server started on: ' + port);
+
+function initializeData() {
+  // Clear our db when starting up
+  Task.remove({}).catch((e) => {
+    console.error("error clearing Task Collection");
+  });
+  TaskColumn.remove({}).catch((e) => {
+    console.error("error clearing Task Collection");
+  });
+  Board.remove({}).catch((e) => {
+    console.error("error clearing Task Collection");
+  });
+
+  /**
+   * Manually setting up a default scenario.
+   * Upon server start up, we should have 3 Boards
+   */
+  for (let i = 1; i <= 3; i++) {
+    const board = new Board({
+      name: 'Board ' + i,
+    });
+    board.save((err, board) => {
+      // board saved
+    });
+  }
+
+  /**
+   * 4 columns in Board 1, 5 in the Board 2, and 6 in Board 3.
+   */
+  for (let i = 1; i <= 15; i++) {
+    let parentBoard = 'Board 1';
+    if (i > 9) {
+      parentBoard = 'Board 3';
+    } else if (i > 3) {
+      parentBoard = 'Board 2';
+    }
+    const taskColumn = new TaskColumn({
+      name: 'Task Column ' + i,
+      parent_board: parentBoard,
+    });
+    taskColumn.save((err, board) => {
+    });
+  }
+
+  /**
+   * Initialize with 3 tasks in every column
+   */
+  for (let i = 1; i <= 45; i++) {
+    const parentColumn = 'Task Column ' + (Math.ceil(i / 3));
+    const task = new Task({
+      name: 'Task ' + i,
+      completed_time: 'incomplete',
+      parent_column: parentColumn,
+      description: 'Description for task number ' + i,
+    });
+    task.save((err, task) => {
+    });
+  }
+}

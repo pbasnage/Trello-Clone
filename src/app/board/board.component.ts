@@ -4,7 +4,7 @@ import {SortablejsModule} from "ngx-sortablejs";
 import {TaskColumnComponent} from "../task-column/task-column.component";
 import {BoardModel} from "../models/board.model";
 import {TaskColumnModel} from "../models/task-column.model";
-import {TrelloCloneService} from '../services/trello-clone.service';
+import {TrelloCloneService} from "../services/trello-clone.service";
 
 @Component({
   selector: "tc-board",
@@ -39,14 +39,12 @@ export class BoardComponent implements OnInit {
 
   public ngOnInit(): void {
     this.routeSub = this.route.params.subscribe((params: Params) => {
-      console.log("board params", params);
       if (!this.board && params.boardName) {
         this.name = params.boardName;
       } else if (this.board) {
         this.name = this.board.name;
       }
     });
-    console.log("board", this.board);
 
     for (let i = 0; i < 10; i++) {
       const taskColumn = new TaskColumnModel("Task Column " + i, [], this.board);
