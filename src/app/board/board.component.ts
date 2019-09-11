@@ -1,10 +1,8 @@
-import {Component, EventEmitter, Input, Output, OnInit} from "@angular/core";
+import {Component, Input, OnInit} from "@angular/core";
 import {ActivatedRoute, Params} from "@angular/router";
-import {SortablejsModule} from "ngx-sortablejs";
-import {TaskColumnComponent} from "../task-column/task-column.component";
 import {BoardModel} from "../models/board.model";
 import {TaskColumnModel} from "../models/task-column.model";
-import {TrelloCloneService} from "../services/trello-clone.service";
+import {Operation, TrelloCloneService} from "../services/trello-clone.service";
 
 @Component({
   selector: "tc-board",
@@ -23,7 +21,8 @@ export class BoardComponent implements OnInit {
     group: {
       name: "task-bag",
     },
-    onStart: ((dragData: any) => {
+    onEnd: ((dragData: any) => {
+      console.log("onTaskColumnEnd", dragData);
     }),
     onMove: ((moveData: any) => {
       return this.tcs.handleMoveEvent(moveData);
@@ -46,9 +45,23 @@ export class BoardComponent implements OnInit {
       }
     });
 
-    for (let i = 0; i < 10; i++) {
-      const taskColumn = new TaskColumnModel("Task Column " + i, [], this.board);
-      this.taskColumns.push(taskColumn);
+    this.taskColumns = [];
+
+    if (!this.board) {
+      this.tcs.doOperation(Operation.GET_BOARDS, [this.name]).then((response) => {
+        this.board = new BoardModel(response[0].name);
+      }).catch((e) => {
+        console.error("get board error", e);
+      });
     }
+
+    this.tcs.doOperation(Operation.GET_TASK_COLUMNS, [this.name]).then((lines: any) => {
+      lines.forEach((line) => {
+        const taskColumn = new TaskColumnModel(line.name, line.parent_board);
+        this.taskColumns.push(taskColumn);
+      });
+    }).catch((e) => {
+      console.error("get task columns error", e);
+    });
   }
 }

@@ -26,16 +26,20 @@ export class TrelloCloneService {
         url = args && args.length > 0 ? "http://localhost:3000/task-columns/" + args[0] : "";
         break;
       case Operation.GET_BOARDS:
-        url = "http://localhost:3000/boards";
+        if (!args) {
+          url = "http://localhost:3000/boards";
+        } else {
+          url = "http://localhost:3000/boards/" + args[0];
+        }
         break;
       case Operation.GET_TASK_COLUMNS:
-        url = args && args.length > 0 ? "http://localhost:3000/boards/" + args[0] : "";
+        url = args && args.length > 0 ? "http://localhost:3000/task-columns/" + args[0] : "";
         break;
       case Operation.GET_TASKS:
         if (!args) {
           url = "http://localhost:3000/tasks";
         } else {
-          url = args.length > 0 ? "http://localhost:3000/task-columns/" + args[0] : "";
+          url = args.length > 0 ? "http://localhost:3000/tasks/" + args[0] : "";
         }
         break;
       case Operation.COMPLETE_TASK:
@@ -55,7 +59,6 @@ export class TrelloCloneService {
 
       request.onload = () => {
         const data = JSON.parse(request.response);
-        console.log("json response", data);
 
         if (request.status >= 200 && request.status < 400) {
           resolve(data);

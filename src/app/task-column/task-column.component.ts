@@ -1,9 +1,8 @@
 import {Component, Input, OnInit} from "@angular/core";
-import {BoardComponent} from "../board/board.component";
 import {BoardModel} from "../models/board.model";
 import {TaskColumnModel} from "../models/task-column.model";
 import {TaskModel} from "../models/task.model";
-import {TrelloCloneService} from "../services/trello-clone.service";
+import {Operation, TrelloCloneService} from "../services/trello-clone.service";
 
 @Component({
   selector: "tc-task-column",
@@ -15,14 +14,17 @@ export class TaskColumnComponent implements OnInit {
   @Input() board: BoardModel;
   @Input() taskColumn: TaskColumnModel;
 
+  public tasks: TaskModel[] = [];
+
   public taskColumnSortableOptions: any = {
     group: {
       name: "task-bag",
     },
-    onStart: ((dragData: any) => {
-    }),
     onMove: ((moveData: any) => {
       return this.tcs.handleMoveEvent(moveData);
+    }),
+    onEnd: ((dragData: any) => {
+      console.log("onTaskEnd", dragData);
     }),
   };
 
@@ -35,11 +37,14 @@ export class TaskColumnComponent implements OnInit {
     if (this.board) {
       this.taskColumn.parentBoard = this.board;
     }
-    if (!this.taskColumn.tasks.length) {
-      for (let i = 0; i < 10; i++) {
-        const task = new TaskModel("Task " + i, "Description " + i, "", this.taskColumn);
-        this.taskColumn.tasks.push(task);
-      }
-    }
+
+    this.tcs.doOperation(Operation.GET_TASKS, [this.taskColumn.name]).then((lines: any) => {
+      lines.forEach((line) => {
+        const task = new TaskModel(line.name, line.description, line.completedTime, line.parent_column);
+        this.tasks.push(task);
+      });
+    }).catch((e) => {
+      console.error("fetching tasks error", e);
+    });
   }
 }

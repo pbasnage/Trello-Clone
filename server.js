@@ -41,7 +41,7 @@ app.use(function(req, res) {
 });
 
 
-console.log('todo list RESTful API server started on: ' + port);
+console.log('Trello Clone RESTful API server started on: ' + port);
 
 function initializeData() {
   // Clear our db when starting up
@@ -75,7 +75,7 @@ function initializeData() {
     let parentBoard = 'Board 1';
     if (i > 9) {
       parentBoard = 'Board 3';
-    } else if (i > 3) {
+    } else if (i > 4) {
       parentBoard = 'Board 2';
     }
     const taskColumn = new TaskColumn({

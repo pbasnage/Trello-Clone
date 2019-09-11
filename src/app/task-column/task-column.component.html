@@ -2,8 +2,8 @@
   <div class="title">
     BASIC TASK COLUMN COMPONENT {{taskColumn.name}}
   </div>
-  <div class="task-container" [sortablejs]="taskColumn.tasks" [sortablejsOptions]="taskColumnSortableOptions">
-    <div *ngFor="let task of taskColumn.tasks">
+  <div class="task-container" [sortablejs]="tasks" [sortablejsOptions]="taskColumnSortableOptions">
+    <div *ngFor="let task of tasks">
       <tc-task [task]="task"></tc-task>
     </div>
   </div>

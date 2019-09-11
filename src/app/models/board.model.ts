@@ -4,8 +4,7 @@ export class BoardModel {
   public name: string;
   public taskColumns: TaskColumnModel[];
 
-  constructor(name, taskColumns) {
+  constructor(name) {
     this.name = name ? name : "";
-    this.taskColumns = taskColumns ? taskColumns : [];
   }
 }

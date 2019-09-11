@@ -7,7 +7,7 @@ module.exports = function(app) {
     .get(routeList.list_all_boards)
     .post(routeList.create_a_board);
 
-  app.route('/boards/:boardId')
+  app.route('/boards/:name')
     .get(routeList.read_a_board)
     .put(routeList.update_a_board)
     .delete(routeList.delete_a_board);
@@ -17,7 +17,10 @@ module.exports = function(app) {
     .get(routeList.list_all_task_columns)
     .post(routeList.create_a_task_column);
 
-  app.route('/task-columns/:taskColumnId')
+  app.route('/task-columns/:boardName')
+    .get(routeList.list_task_columns_for_board);
+
+  app.route('/task-columns/:name')
     .get(routeList.read_a_task_column)
     .put(routeList.update_a_task_column)
     .delete(routeList.delete_a_task_column);
@@ -26,6 +29,9 @@ module.exports = function(app) {
   app.route('/tasks')
     .get(routeList.list_all_tasks)
     .post(routeList.create_a_task);
+
+  app.route('/tasks/:taskColumnName')
+    .get(routeList.list_tasks_for_task_column);
 
   app.route('/tasks/:taskId')
     .get(routeList.read_a_task)

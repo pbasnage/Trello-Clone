@@ -29,7 +29,9 @@ exports.create_a_board = function(req, res) {
 };
 
 exports.read_a_board = function(req, res) {
-  Board.findById(req.params.boardId, function(err, board) {
+  Board.find({
+    name: req.params.name,
+  }, (err, board) => {
     if (err)
       res.send(err);
     res.json(board);
@@ -82,6 +84,16 @@ exports.read_a_task_column = function(req, res) {
   });
 };
 
+exports.list_task_columns_for_board = function(req, res) {
+  TaskColumn.find({
+    parent_board: req.params.boardName,
+  }, (err, board) => {
+    if (err)
+      res.send(err);
+    res.json(board);
+  });
+};
+
 exports.update_a_task_column = function(req, res) {
   TaskColumn.findOneAndUpdate({_id: req.params.taskColumnId}, req.body, {new: true}, function(err, taskColumn) {
     if (err)
@@ -108,6 +120,16 @@ exports.list_all_tasks = function(req, res) {
     if (err)
       res.send(err);
     res.json(task);
+  });
+};
+
+exports.list_tasks_for_task_column = function(req, res) {
+  Task.find({
+    parent_column: req.params.taskColumnName,
+  }, (err, board) => {
+    if (err)
+      res.send(err);
+    res.json(board);
   });
 };
 
