@@ -2,8 +2,8 @@
   <div class="task-title">{{task.title}}</div>
   <div class="task-desc">{{task.description}}</div>
   <div class="status-row">
-    <div *ngIf="!!task?.completionTime; else notYetCompleted" class="completed-row">
-      Completed:&nbsp;{{task.completionTime}}
+    <div *ngIf="task?.completedTime !== 'incomplete'; else notYetCompleted" class="completed-row">
+      Completed:&nbsp;{{userFriendlyDate ? userFriendlyDate : task.completedTime}}
     </div>
     <ng-template #notYetCompleted >
       <div class="not-completed-row">

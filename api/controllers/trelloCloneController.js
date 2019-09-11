@@ -130,10 +130,10 @@ exports.list_all_tasks = function(req, res) {
 exports.list_tasks_for_task_column = function(req, res) {
   Task.find({
     parent_column: req.params.taskColumnName,
-  }, (err, board) => {
+  }, (err, task) => {
     if (err)
       res.send(err);
-    res.json(board);
+    res.json(task);
   });
 };
 
@@ -156,7 +156,11 @@ exports.read_a_task = function(req, res) {
 
 exports.update_a_task = function(req, res) {
   Task.findOne({name: req.params.name}, function(err, task) {
-    task.index = req.params.index;
+    if (req.params.index.length < 10) {
+      task.index = req.params.index;
+    } else {
+      task.completed_time = req.params.index;
+    }
     task.save(function (err) {
       if (err) {
         res.send(err);

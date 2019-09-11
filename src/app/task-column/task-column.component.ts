@@ -40,7 +40,8 @@ export class TaskColumnComponent implements OnInit {
 
     this.tcs.doOperation(Operation.GET_TASKS, [this.taskColumn.name]).then((lines: any) => {
       lines.forEach((line) => {
-        const task = new TaskModel(line.name, line.description, line.completedTime, line.parent_column, line.index);
+        console.log("line", line);
+        const task = new TaskModel(line.name, line.description, line.completed_time, line.parent_column, line.index);
         this.tasks.push(task);
       });
       this.tasks.sort((a: TaskModel, b: TaskModel) => {

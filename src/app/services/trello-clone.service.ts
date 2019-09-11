@@ -43,22 +43,25 @@ export class TrelloCloneService {
         }
         break;
       case Operation.COMPLETE_TASK:
-        url = args && args.length > 0 ? "http://localhost:3000/tasks/" + args[0] : "";
+        url = args && args.length > 1 ? "http://localhost:3000/tasks/" + args[0] + "/" + args[1] : "";
         method = "PUT";
         break;
     }
     // Don't continue if we pass an invalid operation, or url has not otherwise been set
     if (!url) {
-      return;
+      return Promise.reject("Invalid Operation Error");
     }
 
     return new Promise<any>((resolve, reject) => {
+      console.log(method, url);
       // Open a new connection
       const request = new XMLHttpRequest();
       request.open(method, url, true);
 
       request.onload = () => {
         const data = JSON.parse(request.response);
+
+        console.log("data", data);
 
         if (request.status >= 200 && request.status < 400) {
           resolve(data);
