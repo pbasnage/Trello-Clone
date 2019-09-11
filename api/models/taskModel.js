@@ -7,16 +7,16 @@ const TaskSchema = new Schema({
     type: String,
     required: 'Enter the name of the task'
   },
-  completed_time: {
-    type: String,
-    default: 'incomplete'
-  },
-  parent_column: {
-    type: String,
-  },
   description: {
     type: String,
     default: 'Enter description'
+  },
+  parentColumn: {
+    type: String,
+  },
+  completedTime: {
+    type: String,
+    default: 'incomplete'
   },
   index: {
     type: Number,

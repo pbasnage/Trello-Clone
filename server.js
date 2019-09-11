@@ -98,8 +98,8 @@ function initializeData() {
     const parentColumn = 'Task Column ' + (Math.ceil(i / 3));
     const task = new Task({
       name: 'Task ' + i,
-      completed_time: 'incomplete',
-      parent_column: parentColumn,
+      completedTime: 'incomplete',
+      parentColumn: parentColumn,
       description: 'Description for task number ' + i,
       index: ((i - 1) % 3),
     });

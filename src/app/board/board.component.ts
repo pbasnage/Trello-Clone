@@ -75,21 +75,16 @@ export class BoardComponent implements OnInit {
     const draggedTitle = this.taskColumns[newIndex].name; // dragged item title
     const switchedTitle = this.taskColumns[oldIndex].name; // item that got switched title
 
-    console.log("title, index", draggedTitle, newIndex);
-    this.tcs.doOperation(Operation.UPDATE_TASK_COLUMN_ORDER, [draggedTitle, newIndex]).then((res) => {
-      console.log("success1", res);
+    this.tcs.doOperation(Operation.UPDATE_TASK_COLUMN_ORDER, [draggedTitle, newIndex]).then(() => {
+      // Successfully reordered
     }).catch((e) => {
       console.error("Task1 reorder error", e);
     });
 
-    console.log("title, index", switchedTitle, oldIndex);
-    this.tcs.doOperation(Operation.UPDATE_TASK_COLUMN_ORDER, [switchedTitle, oldIndex]).then((res) => {
-      console.log("success2", res);
+    this.tcs.doOperation(Operation.UPDATE_TASK_COLUMN_ORDER, [switchedTitle, oldIndex]).then(() => {
+      // Successfully reordered
     }).catch((e) => {
       console.error("Task2 reorder error", e);
     });
-
-    console.log("updated tasks", this.taskColumns);
   }
-
 }

@@ -53,15 +53,12 @@ export class TrelloCloneService {
     }
 
     return new Promise<any>((resolve, reject) => {
-      console.log(method, url);
       // Open a new connection
       const request = new XMLHttpRequest();
       request.open(method, url, true);
 
       request.onload = () => {
         const data = JSON.parse(request.response);
-
-        console.log("data", data);
 
         if (request.status >= 200 && request.status < 400) {
           resolve(data);

@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {TaskModel} from '../models/task.model';
-import {Operation, TrelloCloneService} from '../services/trello-clone.service';
+import {Component, Input, OnInit} from "@angular/core";
+import {TaskModel} from "../models/task.model";
+import {Operation, TrelloCloneService} from "../services/trello-clone.service";
 
 @Component({
   selector: "tc-task",
@@ -26,7 +26,7 @@ export class TaskComponent implements OnInit {
 
     this.task.completedTime = storedTime;
 
-    this.tcs.doOperation(Operation.COMPLETE_TASK, [this.task.title, storedTime]).then((res) => {
+    this.tcs.doOperation(Operation.COMPLETE_TASK, [this.task.title, storedTime]).then(() => {
       this.checkForDateConversion();
     }).catch((e) => {
       console.error("Complete task error", e);
