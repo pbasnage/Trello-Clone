@@ -1,6 +1,6 @@
 <div class="task-column-wrapper">
   <div class="title">
-    BASIC TASK COLUMN COMPONENT {{taskColumn.name}}
+    {{taskColumn.name}}
   </div>
   <div class="task-container" [sortablejs]="tasks" [sortablejsOptions]="taskColumnSortableOptions">
     <div *ngFor="let task of tasks">

@@ -19,11 +19,11 @@ export class TrelloCloneService {
     switch (operation) {
       case Operation.UPDATE_TASK_COLUMN_ORDER:
         method = "PUT";
-        url = args && args.length > 0 ? "http://localhost:3000/boards/" + args[0] : "";
+        url = args && args.length > 1 ? "http://localhost:3000/task-columns/" + args[0] + "/" + args[1] : "";
         break;
       case Operation.UPDATE_TASK_ORDER:
         method = "PUT";
-        url = args && args.length > 0 ? "http://localhost:3000/task-columns/" + args[0] : "";
+        url = args && args.length > 1 ? "http://localhost:3000/tasks/" + args[0] + "/" + args[1] : "";
         break;
       case Operation.GET_BOARDS:
         if (!args) {

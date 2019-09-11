@@ -25,6 +25,9 @@ module.exports = function(app) {
     .put(routeList.update_a_task_column)
     .delete(routeList.delete_a_task_column);
 
+  app.route('/task-columns/:name/:index')
+    .put(routeList.update_a_task_column);
+
   // Task Routes
   app.route('/tasks')
     .get(routeList.list_all_tasks)
@@ -33,8 +36,11 @@ module.exports = function(app) {
   app.route('/tasks/:taskColumnName')
     .get(routeList.list_tasks_for_task_column);
 
-  app.route('/tasks/:taskId')
+  app.route('/tasks/:name')
     .get(routeList.read_a_task)
     .put(routeList.update_a_task)
     .delete(routeList.delete_a_task);
+
+  app.route('/tasks/:name/:index')
+    .put(routeList.update_a_task)
 };

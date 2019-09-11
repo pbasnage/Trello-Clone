@@ -11,6 +11,9 @@ const TaskColumnSchema = new Schema({
     type: String,
     default: ''
   },
+  index: {
+    type: Number,
+  }
 });
 
 module.exports = mongoose.model('TaskColumns', TaskColumnSchema);

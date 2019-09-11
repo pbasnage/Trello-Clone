@@ -24,7 +24,7 @@ export class TaskColumnComponent implements OnInit {
       return this.tcs.handleMoveEvent(moveData);
     }),
     onEnd: ((dragData: any) => {
-      console.log("onTaskEnd", dragData);
+      this.handleTaskDrag(dragData);
     }),
   };
 
@@ -40,11 +40,39 @@ export class TaskColumnComponent implements OnInit {
 
     this.tcs.doOperation(Operation.GET_TASKS, [this.taskColumn.name]).then((lines: any) => {
       lines.forEach((line) => {
-        const task = new TaskModel(line.name, line.description, line.completedTime, line.parent_column);
+        const task = new TaskModel(line.name, line.description, line.completedTime, line.parent_column, line.index);
         this.tasks.push(task);
       });
+      this.tasks.sort((a: TaskModel, b: TaskModel) => {
+        return a.index - b.index;
+      });
+      console.log("tasks", this.tasks);
     }).catch((e) => {
       console.error("fetching tasks error", e);
     });
+  }
+
+  private handleTaskDrag(dragData: any): void {
+    const oldIndex = dragData.oldIndex; // where dragged item used to be 0
+    const newIndex = dragData.newIndex; // where dragged item is now 1
+
+    const draggedTitle = this.tasks[newIndex].title; // dragged item title
+    const switchedTitle = this.tasks[oldIndex].title; // item that got switched title
+
+    console.log("title, index", draggedTitle, newIndex);
+    this.tcs.doOperation(Operation.UPDATE_TASK_ORDER, [draggedTitle, newIndex]).then((res) => {
+      console.log("success1", res);
+    }).catch((e) => {
+      console.error("Task1 reorder error", e);
+    });
+
+    console.log("title, index", switchedTitle, oldIndex);
+    this.tcs.doOperation(Operation.UPDATE_TASK_ORDER, [switchedTitle, oldIndex]).then((res) => {
+      console.log("success2", res);
+    }).catch((e) => {
+      console.error("Task2 reorder error", e);
+    });
+
+    console.log("updated tasks", this.tasks);
   }
 }

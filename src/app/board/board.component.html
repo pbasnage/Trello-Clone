@@ -3,7 +3,7 @@
   <div class="columns-wrapper">
     <div class="columns" [sortablejs]="taskColumns" [sortablejsOptions]="boardSortableOptions">
       <div *ngFor="let taskColumn of taskColumns">
-        <tc-task-column [taskColumn]="taskColumn"></tc-task-column>
+        <tc-task-column id="{{taskColumn.name}}" [taskColumn]="taskColumn"></tc-task-column>
       </div>
     </div>
   </div>

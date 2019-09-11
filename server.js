@@ -73,17 +73,22 @@ function initializeData() {
    */
   for (let i = 1; i <= 15; i++) {
     let parentBoard = 'Board 1';
+    let index = 0;
     if (i > 9) {
+      index = 0;
       parentBoard = 'Board 3';
     } else if (i > 4) {
+      index = 0;
       parentBoard = 'Board 2';
     }
     const taskColumn = new TaskColumn({
       name: 'Task Column ' + i,
       parent_board: parentBoard,
+      index: index,
     });
     taskColumn.save((err, board) => {
     });
+    index++;
   }
 
   /**
@@ -96,6 +101,7 @@ function initializeData() {
       completed_time: 'incomplete',
       parent_column: parentColumn,
       description: 'Description for task number ' + i,
+      index: ((i - 1) % 3),
     });
     task.save((err, task) => {
     });

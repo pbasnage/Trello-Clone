@@ -22,7 +22,7 @@ export class BoardComponent implements OnInit {
       name: "task-bag",
     },
     onEnd: ((dragData: any) => {
-      console.log("onTaskColumnEnd", dragData);
+      this.handleTaskColumnDrag(dragData);
     }),
     onMove: ((moveData: any) => {
       return this.tcs.handleMoveEvent(moveData);
@@ -57,11 +57,39 @@ export class BoardComponent implements OnInit {
 
     this.tcs.doOperation(Operation.GET_TASK_COLUMNS, [this.name]).then((lines: any) => {
       lines.forEach((line) => {
-        const taskColumn = new TaskColumnModel(line.name, line.parent_board);
+        const taskColumn = new TaskColumnModel(line.name, line.parent_board, line.index);
         this.taskColumns.push(taskColumn);
+      });
+      this.taskColumns.sort((a: TaskColumnModel, b: TaskColumnModel) => {
+        return a.index - b.index;
       });
     }).catch((e) => {
       console.error("get task columns error", e);
     });
   }
+
+  private handleTaskColumnDrag(dragData: any): void {
+    const oldIndex = dragData.oldIndex; // where dragged item used to be 0
+    const newIndex = dragData.newIndex; // where dragged item is now 1
+
+    const draggedTitle = this.taskColumns[newIndex].name; // dragged item title
+    const switchedTitle = this.taskColumns[oldIndex].name; // item that got switched title
+
+    console.log("title, index", draggedTitle, newIndex);
+    this.tcs.doOperation(Operation.UPDATE_TASK_COLUMN_ORDER, [draggedTitle, newIndex]).then((res) => {
+      console.log("success1", res);
+    }).catch((e) => {
+      console.error("Task1 reorder error", e);
+    });
+
+    console.log("title, index", switchedTitle, oldIndex);
+    this.tcs.doOperation(Operation.UPDATE_TASK_COLUMN_ORDER, [switchedTitle, oldIndex]).then((res) => {
+      console.log("success2", res);
+    }).catch((e) => {
+      console.error("Task2 reorder error", e);
+    });
+
+    console.log("updated tasks", this.taskColumns);
+  }
+
 }

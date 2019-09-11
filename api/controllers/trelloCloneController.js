@@ -95,10 +95,14 @@ exports.list_task_columns_for_board = function(req, res) {
 };
 
 exports.update_a_task_column = function(req, res) {
-  TaskColumn.findOneAndUpdate({_id: req.params.taskColumnId}, req.body, {new: true}, function(err, taskColumn) {
-    if (err)
-      res.send(err);
-    res.json(taskColumn);
+  TaskColumn.findOne({name: req.params.name}, function(err, taskColumn) {
+    taskColumn.index = req.params.index;
+    taskColumn.save(function (err) {
+      if (err) {
+        res.send(err);
+      }
+      res.json(taskColumn);
+    });
   });
 };
 
@@ -151,10 +155,14 @@ exports.read_a_task = function(req, res) {
 };
 
 exports.update_a_task = function(req, res) {
-  Task.findOneAndUpdate({_id: req.params.taskId}, req.body, {new: true}, function(err, task) {
-    if (err)
-      res.send(err);
-    res.json(task);
+  Task.findOne({name: req.params.name}, function(err, task) {
+    task.index = req.params.index;
+    task.save(function (err) {
+      if (err) {
+        res.send(err);
+      }
+      res.json(task);
+    });
   });
 };
 

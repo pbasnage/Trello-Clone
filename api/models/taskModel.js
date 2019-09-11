@@ -17,6 +17,9 @@ const TaskSchema = new Schema({
   description: {
     type: String,
     default: 'Enter description'
+  },
+  index: {
+    type: Number,
   }
 });
 
