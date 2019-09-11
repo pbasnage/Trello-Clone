@@ -24,8 +24,10 @@ Ensure you have brew, mongodb, and node installed on your machine.
 
 Run `brew services start mongodb-community@3.2` to start the mongo database. 
 
-Run `node server.js` to start the the local server.
-The server should be listening on the 3000 port.
+Run `node server.js` to start the the local server. This will initialize the DB
+with custom default values.
+The server should be listening on the 3000 port. Press CTRL+C to stop the server,
+and run the command again if you need to refresh the DB data.
 
 Close all instances of Chrome and open Chrome on another tab using
 `open -a /Applications/Google\ Chrome.app --args --disable-web-security --user-data-dir`
@@ -34,3 +36,8 @@ Don't use this tab for anything except for locally testing this app!
 
 In a new (3rd) terminal tab, run `npm start` to build the Angular project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 The project should be running on the 4200 port.
+
+### Known Bugs
+Reordering elements across different columns (not in requirements)
+currently works as proof-of-concept, but not handled server-side, so it will not be saved
+and may cause wonky behavior.
