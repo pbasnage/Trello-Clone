@@ -34,14 +34,14 @@
 }
 
 .boards-container {
-  background-color: $off-white;
+  background-color: #ABCEFD;
   height: 100%;
   top: 4rem;
   position: absolute;
   width: 100%;
   .boards-info {
     display: flex;
-    padding: 1rem;
+    padding: 2rem 0 0 1rem;
   }
   .boards-wrapper {
     display: flex;

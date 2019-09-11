@@ -55,6 +55,12 @@ export class TaskColumnComponent implements OnInit {
     const oldIndex = dragData.oldIndex; // where dragged item used to be 0
     const newIndex = dragData.newIndex; // where dragged item is now 1
 
+    if (!this.tasks[newIndex] || !this.tasks[oldIndex]) {
+      // this is a state where a drag operation is across bags, which currently does not have server-side
+      // support.
+      return;
+    }
+
     const draggedTitle = this.tasks[newIndex].title; // dragged item title
     const switchedTitle = this.tasks[oldIndex].title; // item that got switched title
 
